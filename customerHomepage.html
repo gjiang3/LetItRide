@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script> -->
+
+   
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- <script type="text/javascript" src="js/homepage.js"></script>
+    <script src="js/homepage_jQuery.js"></script> -->
+
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script> -->
+
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script> -->
+
+    <!-- Latest compiled and minified CSS -->
+    
+    
+
+    
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script> -->
+
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script> -->
+
+    <!-- Latest compiled and minified CSS -->
+    <script src="js/jQuery.js"></script>
+    
+    <!-- <script type="text/javascript">
+      $.getJSON('getData.php', function(data){
+        $.each(data.result, function(){
+          alert(this['name'] + " " + this['email'] + " " + this['phone']);
+        });
+
+      });
+
+    </script> -->
+    
+    
+    
+    <link rel="stylesheet" href="css/homepage.css">
+
+
+  </head>
+  <body onload="initMap()">
+  <div class="se-pre-con"><img src="php/randomImage.php" /></div>
+   <div class="container">
+  
+      <div id="map"></div>
+      <button id="trafficToggle" onclick = "toggleTraffic()">Traffic</button>
+
+  
+      <ul class="tabs">
+        <li><a class = "home" href="#homePage"" title="home" ><img src="img/home.png" 
+                        onMouseOver=src="img/home_hover.png"
+                        onMouseOut=src="img/home.png"></a></li>
+        <li><a class = "profile" href="#profilePage" title="Profile" ><img src="img/profile.png"
+                        onMouseOver=src="img/profile_hover.png"
+                        onMouseOut=src="img/profile.png"></a></li>
+      </ul>
+
+
+      <div class = "tab" id = "homePage">
+          <div class="imagePanel">
+            <img class="profileImage" src = "php/getImage.php" onerror="this.onerror=null;this.src='img/default.jpg';">
+            <div class="textLabel" id="name">FirstName LastName</div>
+          </div>
+        
+          <div class = "inputPanel">
+            <div class= "textLabel" id = "fromLabel">From: </div> 
+            <input id="from" class="controls" type="text" placeholder="Pick up location">
+            <div class= "textLabel" id = "toLabel">To: </div> 
+            <input id="to" class="controls" type="text" placeholder = "Destination">
+            <label class="switch" id="sclection">
+                <input type="checkbox" id="selected">
+                <div class="switch-btn"></div>
+            </label>
+            <button class="button button-block" id = "myLocation"  onclick="recentering()"/>My location</button>
+            <button class="button button-block" id= "requestAride" onclick = "calculateAndDisplayRoute()"/>Request A Ride</button>
+            <a class="button button-block" id= "logout" href="php/logout.php" >Logout</a>
+          </div>
+
+        <div class = "directionPanel" >
+          <div class="textLabel" id="timeAndDistance"></div>
+          <button class="button button-block" id= "showDriverInfoAgain" onclick = "displayRequestDriver()"/>Driver Infomation</button>
+        </div>
+      </div>
+
+        <div class = "tab" id ="profilePage" >
+          <form id = "profileInput" action ="php/submit.php" method = "post" enctype="multipart/form-data">
+            <div class="form-group" >
+              <input type='file'  id="imgInp" name = "profileImg"onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+          <img id="blah" class = "selectImage" src = "php/getImage.php" onerror="this.onerror=null;this.src='img/default.jpg';">
+            <div class="upload"> 
+              <img src="img/upload.png"
+                        onMouseOver=src="img/upload_hover.png"
+                        onMouseOut=src="img/upload.png" onclick="document.getElementById('imgInp').click();">
+                 </div>
+            </div>
+
+            <div class="form-group">
+              <label for="usr" class = "textLabel" >Name:</label>
+              <input type="text" class="form-control" name="usr" pattern=".{1,225}$"  required
+              oninvalid="setCustomValidity('Name cannot be empty')"
+                oninput="setCustomValidity('')" />
+            </div>
+            <div class="form-group">
+              <label for="pwd" class = "textLabel"  >Password:</label>
+              <input type="password" class="form-control" name="pwd" id = "pwd" pattern=".{1,30}$" required
+              onchange=" form.pwd2.pattern = this.value;" />
+            </div>
+
+            <div class="form-group">
+              <label for="pwd2" class = "textLabel"  >Confirm Password:</label>
+              <input type="password" class="form-control" name="pwd2" " id = "pwd2" pattern=".{1,30}$" required 
+              onchange=" this.pattern = form.pwd.value;"
+              oninvalid="setCustomValidity('Passwords do not match')"
+              oninput="setCustomValidity('')" />
+            </div>
+
+            <div class="form-group">
+              <label for="email" class = "textLabel" >Email:</label>
+              <input type="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required
+              oninvalid="setCustomValidity('Invalid email address')"
+              oninput="setCustomValidity('')" />
+            </div>
+
+            <div class="form-group">
+              <label for="phone" class = "textLabel" >Phone:</label>
+              <input type="text" class="form-control" name = "phone" pattern="[0-9]+$" required
+                oninvalid="setCustomValidity('Invalid phone number')"
+                oninput="setCustomValidity('')" />
+            </div>
+
+            <div class="form-group">
+              <label for="ccard" class = "textLabel" >Credit Card:</label>
+              <input type="text" class="form-control" name = "ccard" pattern="[0-9]+$" required 
+                oninvalid="setCustomValidity('Invalid credit card number')"
+                oninput="setCustomValidity('')" />
+            </div>
+
+            <!-- <input id="password" name="password" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Password" required>
+
+            <input id="password_two" name="password_two" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password" required> -->
+
+            <!-- <input type="text" id="inputTell" class="bfh-phone" data-format="(ddd) ddd-dddd"> -->
+            
+
+            <button type="submit" class="button button-block">Submit</button>
+          </form>
+        </div>
+
+    </div> 
+
+    <div id="requestDriverScreen">
+        
+        <div class ="displayDirverInfo">
+          <div id="dirverImage">
+            <img class="dirverIm" src = "#" 
+                    onerror="this.onerror=null;this.src='img/default.jpg';">
+            <div class="textLabel" id="diverName"></div>
+          </div>
+          <div class="textLabel dInfo">
+
+            <p id="drivId"></p>
+            <p id="model"></p>
+            <p id="license"></p>
+            <p id="plate"></p>
+            <p id="phone"></p>
+            <p id="waitingTime"></p>
+          </div>
+          <button class="button button-block" id = "closeDriverInfo"  onclick="closeRequestDriver()"/>OK</button>
+        </div>
+    </div>
+
+
+
+    <div id="noDriverScreen">
+        <div class = "dirverInfo">
+          <div class = "textLabel noDriver">
+            <h3>No driver found</h3>
+            <p><br />Opps! Looks like someone<br /> <br /> needs to take a long walk</p>
+          </div>
+          <div class="closePopUp" title="close"  onclick="closeNoDriver()">
+            <p>X</p>
+          </div>
+        </div>
+    </div>
+
+
+    <div id="promptUserEnterDestinationAndPickupLocationScreen">
+        <div class = "enterDAndP">
+          <div class = "textLabel DAndP">
+            <h5>Please, enther both pick up location <br /> <br /> and destination</h4>
+          </div>
+          <div class="closePopUp" title="close"  onclick="closeDAndP()">
+            <p>X</p>
+          </div>
+        </div>
+    </div>
+
+    <script src="js/homepage_jQuery.js"></script>
+    <script type="text/javascript" src="js/homepage.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZH1m8DpmJxoEb-708cFe9u9rBFn_4B9g&libraries=places,geometry,drawing&callback=initMap"></script>
+    <script src="js/v3_epoly.js" defer></script>
+    
+
+  </body>
+</html>

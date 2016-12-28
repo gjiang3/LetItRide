@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Let It Ride</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  
+      <link rel="stylesheet" href="css/style.css">
+
+
+      
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+  
+      <style>
+      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+      @import url(https://fonts.googleapis.com/css?family=Quicksand:400,700);
+#canvas {
+  background: #000;
+  display: block;
+}
+
+h1 {
+  position: fixed;
+  top: 100px;
+  right: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-family: Quicksand;
+  letter-spacing: 10px;
+  font-size: 26px;
+  text-transform: uppercase;
+}
+
+    </style>
+
+  
+</head>
+
+
+
+<body>
+
+  <!-- onclick="window.location.href='login.html'" -->
+  <h1>Let It Ride</h1>
+  <button class="newlink" onclick="window.location.href='login.html'">
+  Let your journey
+  <span>begin</span>
+</button>
+
+<!-- <script>
+            $(function() {
+              $('.newlink').click(function() {
+                var destination = this.href;
+                $('body').fadeOut(2000, function() {
+                    window.location = destination;
+                  });
+                });
+                return false;
+              });
+            });
+</script>   -->
+
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+        $("body").css("display", "none");
+    });
+</script> -->
+ 
+ <canvas id="canvas"></canvas>
+  <script src='https://code.createjs.com/easeljs-0.8.2.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js'></script>
+<script src='http://codepen.io/balapa/pen/c58fffe58d661ae3d4b168a43eb3b2b8.js'></script>
+
+    <script src="js/indx.js"></script>
+    <!-- <script src="js/indx_jQuery2.js"></script> -->
+    
+  
+</body>
+</html>
